@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record id="op_course_view_form" model="ir.ui.view">
+            <field name="name">op.course.view.form.inherit</field>
+            <field name="model">op.course</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="openeducat_core.view_op_course_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group/group[2]/field[@name='max_unit_load']" position="after">
+                    <field name="branch_id" required="1" />
+                </xpath>
+            </field>
+        </record>
+        <record id="op_course_view_tree" model="ir.ui.view">
+            <field name="name">op.course.view.tree.inherit</field>
+            <field name="model">op.course</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="openeducat_core.view_op_course_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='max_unit_load']" position="after">
+                    <field name="branch_id" />
+                </xpath>
+            </field>
+        </record>
+        <record id="op_admission_register_view_form" model="ir.ui.view">
+            <field name="name">op.admission.register.view.form.inherit</field>
+            <field name="model">op.admission.register</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="openeducat_admission.view_op_admission_register_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group/group[2]/field[@name='course_id']" position="after">
+                    <field name="branch_id" required="1" />
+                </xpath>
+            </field>
+        </record>
+        <record id="op_admission_register_view_tree" model="ir.ui.view">
+            <field name="name">op.admission.register.view.tree.inherit</field>
+            <field name="model">op.admission.register</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="openeducat_admission.view_op_admission_register_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='course_id']" position="after">
+                    <field name="branch_id" />
+                </xpath>
+            </field>
+        </record>
+        <record id="op_admission_view_form" model="ir.ui.view">
+            <field name="name">op.admission.view.form.inherit</field>
+            <field name="model">op.admission</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="openeducat_admission.view_op_admission_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/notebook/page[@name='admission_detail']/group/group[2]/field[@name='partner_id']" position="after">
+                    <field name="branch_id" required="1" />
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@name='educational_detail']/group/group[1]/field[@name='prev_institute_id']" position="attributes">
+                    <attribute name="string">Institute</attribute>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@name='educational_detail']/group/group[1]/field[@name='prev_result']" position="attributes">
+                    <attribute name="string">Result</attribute>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@name='educational_detail']/group/group[2]/field[@name='prev_course_id']" position="attributes">
+                    <attribute name="string">Course</attribute>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@name='educational_detail']/group" position="after">
+                    <h3>Academic History</h3>
+                    <field name="academic_history_ids">
+                        <tree string="Academic History" editable="bottom">
+                            <field name="institute_name" required="1" />
+                            <field name="course_name" required="1" />
+                            <field name="year_of_completion" required="1" />
+                            <field name="result" required="1" />
+                        </tree>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+        <record id="op_admission_view_tree" model="ir.ui.view">
+            <field name="name">op.admission.view.tree.inherit</field>
+            <field name="model">op.admission</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="openeducat_admission.view_op_admission_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='course_id']" position="after">
+                    <field name="branch_id" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
