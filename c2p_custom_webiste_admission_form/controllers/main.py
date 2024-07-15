@@ -11,9 +11,9 @@ class WebsiteAdmissionForm(http.Controller):
         res_partner_country = request.env['res.country'].sudo().search([])
         res_partner_state = request.env['res.country.state'].sudo().search([])
         op_courses = request.env['op.course'].sudo().search([])
-        op_branchs = request.env['res.company'].sudo().search([])
+        # op_branchs = request.env['res.company'].sudo().search([])
         op_admission_register = request.env['op.admission.register'].sudo().search([])
-        return request.render('c2p_custom_webiste_admission_form.admission_form', {'res_partner_title': res_partner_title, 'res_partner_country': res_partner_country, 'res_partner_state': res_partner_state, 'op_courses': op_courses, 'op_branchs': op_branchs, 'op_admission_register': op_admission_register})
+        return request.render('c2p_custom_webiste_admission_form.admission_form', {'res_partner_title': res_partner_title, 'res_partner_country': res_partner_country, 'res_partner_state': res_partner_state, 'op_courses': op_courses, 'op_admission_register': op_admission_register})
 
     @http.route('/api/state_country', type='http', auth="public", methods=['GET'], website=True, sitemap=True)
     def get_state_country(self, **kw):
@@ -24,7 +24,7 @@ class WebsiteAdmissionForm(http.Controller):
 
     @http.route('/api/register_branch', type='http', auth="public", methods=['GET'], website=True, sitemap=True)
     def get_register_branch(self, **kw):
-        branch_id = kw.get('branch_id')
+        # branch_id = kw.get('branch_id')
         op_admission_register = request.env['op.admission.register'].sudo().search([('branch_id', '=', int(branch_id))])
         admission_register_list = [{'id': admission_register.id, 'name': admission_register.name, 'start_date': admission_register.start_date.strftime("%Y-%m-%d") if admission_register.start_date else None, 'end_date': admission_register.end_date.strftime("%Y-%m-%d") if admission_register.end_date else None, 'max_count': admission_register.max_count, 'minimum_age_criteria': admission_register.minimum_age_criteria, 'course_id': admission_register.course_id.id} for admission_register in op_admission_register]
         return json.dumps(admission_register_list)
@@ -62,27 +62,27 @@ class WebsiteAdmissionForm(http.Controller):
             'mobile': kw.get('mobile'),
             'street': kw.get('street'),
             'street2': kw.get('street2'),
-            'prev_institute_id': kw.get('prev_institute_id'),
-            'prev_course_id': kw.get('prev_course_id'),
-            'prev_result': kw.get('prev_result'),
+            # 'prev_institute_id': kw.get('prev_institute_id'),
+            # 'prev_course_id': kw.get('prev_course_id'),
+            # 'prev_result': kw.get('prev_result'),
             'application_date': formatted_time,
             'admission_date': formatted_time,
-            'branch_id': kw.get('branch_id'),
+            # 'branch_id': kw.get('branch_id'),
             'register_id': kw.get('register_id'),
             'course_id': kw.get('course_id'),
         })
-        if op_admission:
-            academic_history_list = json.loads(kw.get('academic_history_array'))
-            for item in academic_history_list:
-                if len(item) != 0:
-                    request.env['op.academic.history'].sudo().create({
-                        'institute_name': item['institute_name'],
-                        'course_name': item['course_name'],
-                        'year_of_completion': item['year_of_completion'],
-                        'result': item['result'],
-                        'op_admission_id': op_admission.id
-                    })
-            op_admission.submit_form()
+        # if op_admission:
+        #     academic_history_list = json.loads(kw.get('academic_history_array'))
+        #     for item in academic_history_list:
+        #         if len(item) != 0:
+        #             request.env['op.academic.history'].sudo().create({
+        #                 'institute_name': item['institute_name'],
+        #                 'course_name': item['course_name'],
+        #                 'year_of_completion': item['year_of_completion'],
+        #                 'result': item['result'],
+        #                 'op_admission_id': op_admission.id
+        #             })
+        #     op_admission.submit_form()
         return request.redirect('/admission/form/view/?admission_id='+ str(op_admission.id))
 
 
@@ -93,9 +93,9 @@ class WebsiteAdmissionForm(http.Controller):
         country = request.env['res.country'].sudo().search([('id', '=', int(op_admission.country_id.id))])
         state = request.env['res.country.state'].sudo().search([('id', '=', int(op_admission.state_id.id))])
         courses = request.env['op.course'].sudo().search([('id', '=', int(op_admission.course_id.id))])
-        branchs = request.env['res.company'].sudo().search([('id', '=', int(op_admission.branch_id.id))])
+        # branchs = request.env['res.company'].sudo().search([('id', '=', int(op_admission.branch_id.id))])
         admission_register = request.env['op.admission.register'].sudo().search([('id', '=', int(op_admission.register_id.id))])
-        op_academic_history = request.env['op.academic.history'].sudo().search([('op_admission_id', '=', int(admission_id))])
+        # op_academic_history = request.env['op.academic.history'].sudo().search([('op_admission_id', '=', int(admission_id))])
         vals = {
             'op_admission': op_admission,
             'application_date': op_admission.application_date.strftime("%Y-%m-%d %H:%M:%S"),
@@ -104,9 +104,9 @@ class WebsiteAdmissionForm(http.Controller):
             'country': country,
             'state': state,
             'courses': courses,
-            'branchs': branchs,
+            # 'branchs': branchs,
             'admission_register': admission_register,
-            'op_academic_history': op_academic_history,
+            # 'op_academic_history': op_academic_history,
         }
         return request.render("c2p_custom_webiste_admission_form.admission_form_view", vals)
 

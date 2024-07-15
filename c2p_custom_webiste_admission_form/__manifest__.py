@@ -11,9 +11,9 @@
     'website': 'https://core-2-plus.odoo.com/',
     'depends': ['base', 'website', 'openeducat_admission', 'openeducat_core'],
     'data': [
-        'security/ir.model.access.csv',
+        # 'security/ir.model.access.csv',
         'data/data.xml',
-        'views/view.xml',
+        # 'views/view.xml',
     ],
     'license': 'OEEL-1',
     'assets': {

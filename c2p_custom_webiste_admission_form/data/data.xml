@@ -30,31 +30,32 @@
                                                 <div class="label">Personal Detail</div>
                                             </a>
                                         </li>
-                                        <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
-                                            <a class="mx-2">
-                                                <span class="form-stepper-circle text-muted">
-                                                    <span>2</span>
-                                                </span>
-                                                <div class="label text-muted">Educational Detail</div>
-                                            </a>
-                                        </li>
-                                        <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
-                                            <a class="mx-2">
-                                                <span class="form-stepper-circle text-muted">
-                                                    <span>3</span>
-                                                </span>
-                                                <div class="label text-muted">Admission Detail</div>
-                                            </a>
-                                        </li>
                                     </ul>
                                     <form id="UserAdmissionForm" name="UserAdmissionForm" action="/admission/form/submit" enctype="multipart/form-data" method="POST">
                                         <input type="hidden" id="csrf_token" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <!-- <label for="register_id">Admission Register<sup class="check_sup">*</sup> :</label> -->
+                                        <!-- <select id="register_id" name="register_id" class="form-select step_three" >
+                                            <option value="">Select Admission Register</option>
+                                        </select> -->
+                                        <input class="display_none" type="text" id="admission_date" name="admission_date" value = "07/14/2024"/>
+                                        <input class="display_none" type="text" id="start_date" name="start_date" value = "01/14/2024"/>
+                                        <input class="display_none" type="text" id="end_date" name="end_date" value = "09/14/2024"/>
+                                        <input class="display_none" type="text" id="application_date" name="application_date" value = "07/14/2024"/>
+                                        <input class="display_none" type="text" id="course_id" name="course_id" value = "1"/>
+                                        <input class="display_none" type="text" id="register_id" name="register_id" value="6" />                                        
+                                        <input class="display_none" type="text" id="start_date" name="start_date" />
+                                        <input class="display_none" type="text" id="end_date" name="end_date" />
+                                        <input class="display_none" type="text" id="max_count" name="max_count" />
+                                        <input class="display_none" type="text" id="minimum_age_criteria" name="minimum_age_criteria" />
+                                        <input class="display_none" type="text" id="age" name="age" />
+                                        <input class="display_none" type="text" id="check_max_count" name="check_max_count" />
+
                                         <section id="step-1" class="form-step d-block">
                                             <h2 class="font-normal">Personal Detail</h2>
                                             <div class="mt-3">
                                                 <div class="row">
                                                     <div class="col-lg-4 col-md-6 col-sm-12">
-                                                        <div class="form-group">
+                                                        <!-- <div class="form-group">
                                                             <label for="title">Title<sup class="check_sup">*</sup> :</label>
                                                             <select id="title" name="title" class="form-select step_one">
                                                                 <option value="">Select Title</option>
@@ -66,7 +67,7 @@
                                                                     </t>
                                                                 </t>
                                                             </select>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group">
@@ -183,130 +184,13 @@
                                             <div class="mt-3">
                                                 <div class="row">
                                                     <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <button class="button btn-navigate-form-step float_right" id="step_number_1" name="step_number_1" type="button" step_number="2">Next</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </section>
-                                        <section id="step-2" class="form-step d-none">
-                                            <h2 class="font-normal">Educational Detail</h2>
-                                            <div class="mt-3">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="application_date">Institute Name<sup class="check_sup">*</sup> :</label>
-                                                            <input type="text" class="form-control step_two" id="prev_institute_id"  name="prev_institute_id" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="prev_course_id">Course Name<sup class="check_sup">*</sup> :</label>
-                                                            <input type="text" class="form-control step_two" id="prev_course_id"  name="prev_course_id" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="prev_result">Result<sup class="check_sup">*</sup> :</label>
-                                                            <input type="text" class="form-control step_two" id="prev_result"  name="prev_result" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-3">
-                                                <div class="row mb-2">
-                                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                                        <h3 class="float_left">Academic History</h3>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                                        <button class="button btn-navigate-form-step float_right" id="academic_history_add" name="academic_history_add" type="button">Add</button>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <table class="table table-bordered">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Institute Name</th>
-                                                                    <th>Course Name</th>
-                                                                    <th>Year Of Completion</th>
-                                                                    <th>Result</th>
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="academic_history">
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-3">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                                        <button class="button btn-navigate-form-step float_left" id="step_number_2" name="step_number_2" type="button" step_number="1">Prev</button>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                                        <button class="button btn-navigate-form-step float_right" id="step_number_3" name="step_number_3" type="button" step_number="3">Next</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </section>
-                                        <section id="step-3" class="form-step d-none">
-                                            <h2 class="font-normal">Admission Detail</h2>
-                                            <div class="mt-3">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="branch_id">Branch<sup class="check_sup">*</sup> :</label>
-                                                            <select id="branch_id" name="branch_id" class="form-select step_three" required="True">
-                                                                <option value="">Select Branch</option>
-                                                                <t t-foreach="op_branchs or []" t-as="branchs">
-                                                                    <t t-if='branchs'>
-                                                                        <option t-att-value="branchs.id">
-                                                                            <t t-esc="branchs.name" />
-                                                                        </option>
-                                                                    </t>
-                                                                </t>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="register_id">Admission Register<sup class="check_sup">*</sup> :</label>
-                                                            <select id="register_id" name="register_id" class="form-select step_three" required="True">
-                                                                <option value="">Select Admission Register</option>
-                                                            </select>
-                                                            <input class="display_none" type="text" id="start_date" name="start_date" />
-                                                            <input class="display_none" type="text" id="end_date" name="end_date" />
-                                                            <input class="display_none" type="text" id="max_count" name="max_count" />
-                                                            <input class="display_none" type="text" id="minimum_age_criteria" name="minimum_age_criteria" />
-                                                            <input class="display_none" type="text" id="age" name="age" />
-                                                            <input class="display_none" type="text" id="check_max_count" name="check_max_count" />
-                                                            <textarea class="display_none" id="academic_history_array" name="academic_history_array">
-                                                            </textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="course_id">Course<sup class="check_sup">*</sup> :</label>
-                                                            <select id="course_id" name="course_id" class="form-select step_three" required="True">
-                                                                <option value="">Select Course</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-3">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                                        <button class="button btn-navigate-form-step float_left" id="step_number_4" name="step_number_4" type="button" step_number="2">Prev</button>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-12">
                                                         <button class="button submit-btn float_right" id="submit_form" name="submit_form" type="button">Submit</button>
                                                         <button class="button submit-btn float_right display_none" id="submit" name="submit" type="submit">Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </section>
+
                                     </form>
                                 </div>
                             </div>
@@ -475,7 +359,7 @@
                                         <h3 class="mb-2">Admission Detail / Educational Detail</h3>
                                         <table class="table table-bordered">
                                             <thead>
-                                                <t t-if='op_admission.branch_id'>
+                                                <!-- <t t-if='op_admission.branch_id'>
                                                     <tr>
                                                         <th class="check_table_tr_th_td">
                                                             Branch Name
@@ -484,7 +368,7 @@
                                                             <t t-esc="branchs.name" />
                                                         </td>
                                                     </tr>
-                                                </t>
+                                                </t> -->
                                                 <t t-if='op_admission.register_id'>
                                                     <tr>
                                                         <th class="check_table_tr_th_td">
@@ -525,7 +409,7 @@
                                                         </td>
                                                     </tr>
                                                 </t>
-                                                <t t-if='op_admission.prev_institute_id'>
+                                                <!-- <t t-if='op_admission.prev_institute_id'>
                                                     <tr>
                                                         <th class="check_table_tr_th_td">
                                                            Previous Institute Name
@@ -554,10 +438,10 @@
                                                             <t t-esc="op_admission.prev_result" />
                                                         </td>
                                                     </tr>
-                                                </t>
+                                                </t> -->
                                             </thead>
                                         </table>
-                                        <table class="table table-bordered">
+                                        <!-- <table class="table table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>Institute Name</th>
@@ -578,7 +462,7 @@
                                                     </t>
                                                 </t>
                                             </tbody>
-                                        </table>
+                                        </table> -->
                                     </div>
                                 </div>
                             </div>
