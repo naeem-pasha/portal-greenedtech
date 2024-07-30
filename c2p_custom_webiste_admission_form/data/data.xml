@@ -54,8 +54,8 @@
                                             <h2 class="font-normal">Personal Detail</h2>
                                             <div class="mt-3">
                                                 <div class="row">
-                                                    <div class="col-lg-4 col-md-6 col-sm-12">
-                                                        <!-- <div class="form-group">
+                                                    <!-- <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
                                                             <label for="title">Title<sup class="check_sup">*</sup> :</label>
                                                             <select id="title" name="title" class="form-select step_one">
                                                                 <option value="">Select Title</option>
@@ -67,30 +67,31 @@
                                                                     </t>
                                                                 </t>
                                                             </select>
-                                                        </div> -->
-                                                    </div>
+                                                        </div> 
+                                                    </div> -->
                                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group">
                                                             <label for="first_name">First Name<sup class="check_sup">*</sup> :</label>
                                                             <input type="text" class="form-control step_one" id="first_name"  name="first_name" required="True" />
-                                                        </div>
+                                                        </div>                                                        
                                                     </div>
-                                                    <div class="col-lg-4 col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="middle_name">Middle Name:</label>
-                                                            <input type="text" class="form-control step_one" id="middle_name" name="middle_name" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-3">
-                                                <div class="row">
                                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group">
                                                             <label for="last_name">Last Name<sup class="check_sup">*</sup> :</label>
                                                             <input type="text" class="form-control step_one" id="last_name" name="last_name" required="True" />
                                                         </div>
-                                                    </div>
+                                                    </div>                                                    
+                                                    <!-- <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="middle_name">Middle Name:</label>
+                                                            <input type="text" class="form-control step_one" id="middle_name" name="middle_name" />
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="mt-3">
+                                                <div class="row">
+
                                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group">
                                                             <label for="gender">Gender<sup class="check_sup">*</sup> :</label>
