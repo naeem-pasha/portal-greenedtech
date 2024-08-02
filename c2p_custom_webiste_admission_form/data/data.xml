@@ -109,6 +109,12 @@
                                                             <input type="date" class="form-control step_one" id="birth_date" name="birth_date" required="True" />
                                                         </div>
                                                     </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="father_name">Father Name<sup class="check_sup">*</sup> :</label>
+                                                            <input type="input" class="form-control step_one" id="father_name" name="father_name" required="True" />
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="mt-3">
@@ -270,6 +276,16 @@
                                                         </th>
                                                         <td class="check_table_tr_th_td">
                                                             <t t-esc="op_admission.birth_date" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.father_name'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                         father_name
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.father_name" />
                                                         </td>
                                                     </tr>
                                                 </t>
