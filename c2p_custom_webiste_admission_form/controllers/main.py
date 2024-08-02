@@ -70,6 +70,9 @@ class WebsiteAdmissionForm(http.Controller):
             # 'branch_id': kw.get('branch_id'),
             'register_id': kw.get('register_id'),
             'course_id': kw.get('course_id'),
+            'father_name': kw.get('father_name'),
+            'mother_name': kw.get('mother_name'),
+
         })
         # if op_admission:
         #     academic_history_list = json.loads(kw.get('academic_history_array'))
