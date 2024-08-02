@@ -20,6 +20,9 @@ class OPAdmissionInherit(models.Model):
     _description = 'Inherit Admission Models'
 
     father_name = fields.Char(
-        'Father Name', translate=True)
+        'Father Name')
+    
+    mother_name = fields.Char(
+        'Mother Name')
     # branch_id = fields.Many2one('res.company', string="Branch")
     # academic_history_ids = fields.One2many('op.academic.history', 'op_admission_id')
