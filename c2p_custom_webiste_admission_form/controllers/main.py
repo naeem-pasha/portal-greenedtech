@@ -90,8 +90,8 @@ class WebsiteAdmissionForm(http.Controller):
         #     op_admission.submit_form()
         return request.redirect('/admission/form/view/?admission_id='+ str(op_admission.id))
 
-    @http.route('/admission/form/submit', type='http', auth="public", website=True)
-    def admission_form_submit(self, **kw):
+    @http.route('/api/admission/form', type='http', auth="public", website=True)
+    def api_admission_form(self, **kw):
         try:
             first_name = kw.get('first_name')
             middle_name = kw.get('middle_name')
