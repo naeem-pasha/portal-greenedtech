@@ -3,7 +3,8 @@ from odoo.http import request
 import json
 from datetime import datetime
 from odoo.http import Response
-
+import logging
+logger = logging.getLogger(__name__)
 
 class WebsiteAdmissionForm(http.Controller):
     @http.route('/admission/form', type='http', auth="public", website=True)
@@ -89,41 +90,48 @@ class WebsiteAdmissionForm(http.Controller):
         #     op_admission.submit_form()
         return request.redirect('/admission/form/view/?admission_id='+ str(op_admission.id))
 
-    @http.route('/api/admission/form', type='http', auth="public", website=True)
-    def api_admission_form(self, **kw):
-        first_name = kw.get('first_name')
-        middle_name = kw.get('middle_name')
-        last_name = kw.get('last_name')
-        current_time = datetime.now()
-        formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
-        op_admission = request.env['op.admission'].sudo().create({
-            'name': f'{first_name} {middle_name} {last_name}',
-            'title': kw.get('title'),
-            'first_name': kw.get('first_name'),
-            'middle_name': kw.get('middle_name'),
-            'last_name': kw.get('last_name'),
-            'gender': kw.get('gender'),
-            'birth_date': kw.get('birth_date'),
-            'email': kw.get('email'),
-            'country_id': kw.get('country_id'),
-            'state_id': kw.get('state_id'),
-            'city': kw.get('city'),
-            'zip': kw.get('zip'),
-            'phone': kw.get('mobile'),
-            'mobile': kw.get('mobile'),
-            'street': kw.get('street'),
-            'street2': kw.get('street2'),
-            'application_date': formatted_time,
-            'admission_date': formatted_time,
-            'register_id': kw.get('register_id'),
-            'course_id': kw.get('course_id'),
-            'father_name': kw.get('father_name'),
-            'mother_name': kw.get('mother_name'),
-        })
-        resource = {
-            'status': 200,
-            'message': 'Admission Form Successfully Submitted'
-        }
+    @http.route('/admission/form/submit', type='http', auth="public", website=True)
+    def admission_form_submit(self, **kw):
+        try:
+            first_name = kw.get('first_name')
+            middle_name = kw.get('middle_name')
+            last_name = kw.get('last_name')
+            current_time = datetime.now()
+            formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
+            op_admission = request.env['op.admission'].sudo().create({
+                'name': f'{first_name} {middle_name} {last_name}',
+                'title': kw.get('title'),
+                'first_name': kw.get('first_name'),
+                'middle_name': kw.get('middle_name'),
+                'last_name': kw.get('last_name'),
+                'gender': kw.get('gender'),
+                'birth_date': kw.get('birth_date'),
+                'email': kw.get('email'),
+                'country_id': kw.get('country_id'),
+                'state_id': kw.get('state_id'),
+                'city': kw.get('city'),
+                'zip': kw.get('zip'),
+                'phone': kw.get('mobile'),
+                'mobile': kw.get('mobile'),
+                'street': kw.get('street'),
+                'street2': kw.get('street2'),
+                'application_date': formatted_time,
+                'admission_date': formatted_time,
+                'register_id': kw.get('register_id'),
+                'course_id': kw.get('course_id'),
+                'father_name': kw.get('father_name'),
+                'mother_name': kw.get('mother_name'),
+            })
+            resource = {
+                'status': 200,
+                'message': 'Admission Form Successfully Submitted'
+            }
+        except Exception as e:
+            logger.error(f"Error submitting admission form: {e}")
+            resource = {
+                'status': 500,
+                'message': f"An error occurred: {str(e)}"
+            }
         return Response(json.dumps(resource), content_type='application/json')
         
     @http.route('/admission/form/view', type='http', auth="public", website=True)
