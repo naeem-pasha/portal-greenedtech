@@ -98,7 +98,7 @@ class WebsiteAdmissionForm(http.Controller):
             if op_admission_register:
                 if data.get('birth_date'):
                     birth_date = datetime.strptime(data.get('birth_date'), '%Y-%m-%d').date()
-                    today_date = fields.Date.today()
+                    today_date =  datetime.today().date()
                     day = (today_date - birth_date).days
                     years = day // 365
                     if years < op_admission_register.minimum_age_criteria:
