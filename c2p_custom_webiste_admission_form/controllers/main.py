@@ -130,7 +130,7 @@ class WebsiteAdmissionForm(http.Controller):
                 'status': 500,
                 'message': f"An error occurred: {str(e)}"
             }
-        return Response(json.dumps(resource), content_type='application/json')
+         return request.make_response(json.dumps(resource), headers=[('Content-Type', 'application/json')])
         
     @http.route('/admission/form/view', type='http', auth="public", website=True)
     def admission_form_view(self, admission_id, **kw):
