@@ -96,8 +96,8 @@ class WebsiteAdmissionForm(http.Controller):
             data = json.loads(request.httprequest.data.decode())
             op_admission_register = request.env['op.admission.register'].sudo().search([('id' ,'=', int(data.get('register_id')))])
             if op_admission_register:
-                birth_date = datetime.strptime(data.get('birth_date'), '%Y-%m-%d').date() if birth_date_str else None
-                if birth_date:
+                if data.get('birth_date'):
+                    birth_date = datetime.strptime(data.get('birth_date'), '%Y-%m-%d').date() if birth_date_str else None
                     today_date = fields.Date.today()
                     day = (today_date - birth_date).days
                     years = day // 365
