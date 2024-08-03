@@ -134,7 +134,8 @@ class WebsiteAdmissionForm(http.Controller):
 
     @http.route('/api/test', type='json', auth="public", methods=['POST'], csrf=False)
     def api_test(self, **kw):
-        return {'status': 'success', 'data': request.jsonrequest}
+        data = json.loads(request.httprequest.data.decode())
+        return {'status': 'success', 'data': data}
     
     @http.route('/admission/form/view', type='http', auth="public", website=True)
     def admission_form_view(self, admission_id, **kw):
