@@ -94,7 +94,7 @@ class WebsiteAdmissionForm(http.Controller):
     def api_admission_form(self, **kw):
         try:
             data = json.loads(request.httprequest.data.decode())
-            op_admission_register = request.env['op.admission.register'].sudo().search([('id' ,'=', int(data.get('register_id')))])
+            op_admission_register = request.env['op.admission.register'].sudo().search([('id' ,'=', int(data.get('register_id'))), ('state', 'in', ['application','admission'])])
             if op_admission_register:
                 if data.get('birth_date'):
                     birth_date = datetime.strptime(data.get('birth_date'), '%Y-%m-%d').date() if birth_date_str else None
