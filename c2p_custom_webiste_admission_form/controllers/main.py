@@ -131,7 +131,11 @@ class WebsiteAdmissionForm(http.Controller):
                 'message': f"An error occurred: {str(e)}"
             }
         return request.make_response(json.dumps(resource), headers=[('Content-Type', 'application/json')])
-        
+
+    @http.route('/api/test', type='json', auth="public", methods=['POST'], csrf=False)
+    def api_test(self, **kw):
+        return {'status': 'success', 'data': request.jsonrequest}
+    
     @http.route('/admission/form/view', type='http', auth="public", website=True)
     def admission_form_view(self, admission_id, **kw):
         op_admission = request.env['op.admission'].sudo().search([('id', '=', int(admission_id))])
