@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="c2p_custom_webiste_admission_form.admission_form" name="Admission Form">
+        <t t-call="website.layout">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+            <link rel="stylesheet" href="/c2p_custom_webiste_admission_form/static/src/css/select2.min.css" />
+            <link rel="stylesheet" href="/c2p_custom_webiste_admission_form/static/src/css/toastr.min.css" />
+            <link rel="stylesheet" href="/c2p_custom_webiste_admission_form/static/src/css/style.css" />
+            <script src="/c2p_custom_webiste_admission_form/static/src/js/jquery.min.js">
+            </script>
+            <script src="/c2p_custom_webiste_admission_form/static/src/js/select2.min.js">
+            </script>
+            <script src="/c2p_custom_webiste_admission_form/static/src/js/sweetalert2.js">
+            </script>
+            <script src="/c2p_custom_webiste_admission_form/static/src/js/toastr.min.js">
+            </script>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="addmission_form_header">
+                            <div>
+                                <h1>Admission Form</h1>
+                                <div id="multi-step-form-container">
+                                    <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+                                        <li class="form-stepper-active text-center form-stepper-list" step="1">
+                                            <a class="mx-2">
+                                                <span class="form-stepper-circle">
+                                                    <span>1</span>
+                                                </span>
+                                                <div class="label">Personal Detail</div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <form id="UserAdmissionForm" name="UserAdmissionForm" action="/admission/form/submit" enctype="multipart/form-data" method="POST">
+                                        <input type="hidden" id="csrf_token" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <!-- <label for="register_id">Admission Register<sup class="check_sup">*</sup> :</label> -->
+                                        <!-- <select id="register_id" name="register_id" class="form-select step_three" >
+                                            <option value="">Select Admission Register</option>
+                                        </select> -->
+                                        <input class="display_none" type="text" id="admission_date" name="admission_date" value = "07/14/2024"/>
+                                        <input class="display_none" type="text" id="start_date" name="start_date" value = "01/14/2024"/>
+                                        <input class="display_none" type="text" id="end_date" name="end_date" value = "09/14/2024"/>
+                                        <input class="display_none" type="text" id="application_date" name="application_date" value = "07/14/2024"/>
+                                        <input class="display_none" type="text" id="course_id" name="course_id" value = "1"/>
+                                        <input class="display_none" type="text" id="register_id" name="register_id" value="6" />                                        
+                                        <input class="display_none" type="text" id="start_date" name="start_date" />
+                                        <input class="display_none" type="text" id="end_date" name="end_date" />
+                                        <input class="display_none" type="text" id="max_count" name="max_count" />
+                                        <input class="display_none" type="text" id="minimum_age_criteria" name="minimum_age_criteria" />
+                                        <input class="display_none" type="text" id="age" name="age" />
+                                        <input class="display_none" type="text" id="check_max_count" name="check_max_count" />
+
+                                        <section id="step-1" class="form-step d-block">
+                                            <h2 class="font-normal">Personal Detail</h2>
+                                            <div class="mt-3">
+                                                <div class="row">
+                                                    <!-- <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="title">Title<sup class="check_sup">*</sup> :</label>
+                                                            <select id="title" name="title" class="form-select step_one">
+                                                                <option value="">Select Title</option>
+                                                                <t t-foreach="res_partner_title or []" t-as="titles">
+                                                                    <t t-if='titles'>
+                                                                        <option t-att-value="titles.id">
+                                                                            <t t-esc="titles.name" />
+                                                                        </option>
+                                                                    </t>
+                                                                </t>
+                                                            </select>
+                                                        </div> 
+                                                    </div> -->
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="first_name">First Name<sup class="check_sup">*</sup> :</label>
+                                                            <input type="text" class="form-control step_one" id="first_name"  name="first_name" required="True" />
+                                                        </div>                                                        
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="last_name">Last Name<sup class="check_sup">*</sup> :</label>
+                                                            <input type="text" class="form-control step_one" id="last_name" name="last_name" required="True" />
+                                                        </div>
+                                                    </div>                                                    
+                                                    <!-- <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="middle_name">Middle Name:</label>
+                                                            <input type="text" class="form-control step_one" id="middle_name" name="middle_name" />
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="mt-3">
+                                                <div class="row">
+
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="gender">Gender<sup class="check_sup">*</sup> :</label>
+                                                            <select id="gender" name="gender" class="form-select step_one" required="True">
+                                                                <option value="">Select Gender</option>
+                                                                <option value="m">Male</option>
+                                                                <option value="f">Female</option>
+                                                                <option value="o">Other</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="birth_date">Birth Date<sup class="check_sup">*</sup> :</label>
+                                                            <input type="date" class="form-control step_one" id="birth_date" name="birth_date" required="True" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="father_name">Father Name<sup class="check_sup">*</sup> :</label>
+                                                            <input type="input" class="form-control step_one" id="father_name" name="father_name" required="True" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="mother_name">Father Name<sup class="check_sup">*</sup> :</label>
+                                                            <input type="input" class="form-control step_one" id="mother_name" name="mother_name" required="True" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="email">Email<sup class="check_sup">*</sup> :</label>
+                                                            <input type="email" class="form-control step_one" id="email" name="email" required="True" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="country_id">Country<sup class="check_sup">*</sup> :</label>
+                                                            <select id="country_id" name="country_id" class="form-select step_one">
+                                                                <option value="">Select Country</option>
+                                                                <t t-foreach="res_partner_country or []" t-as="counties">
+                                                                    <t t-if='counties'>
+                                                                        <option t-att-value="counties.id">
+                                                                            <t t-esc="counties.name" />
+                                                                        </option>
+                                                                    </t>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="state_id">State<sup class="check_sup">*</sup> :</label>
+                                                            <select id="state_id" name="state_id" class="form-select step_one">
+                                                                <option value="">Select State</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="city">City<sup class="check_sup">*</sup> :</label>
+                                                            <input type="text" class="form-control step_one" id="city" name="city" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="zip">Zip<sup class="check_sup">*</sup> :</label>
+                                                            <input type="text" class="form-control step_one" id="zip" name="zip" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="mobile">Mobile<sup class="check_sup">*</sup> :</label>
+                                                            <input type="number" class="form-control step_one" id="mobile" name="mobile" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="street">First Address<sup class="check_sup">*</sup> :</label>
+                                                            <textarea class="form-control step_one" rows="2" id="street" name="street" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="street2">Second Address:</label>
+                                                            <textarea class="form-control step_one" rows="2" id="street2" name="street2" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <button class="button submit-btn float_right" id="submit_form" name="submit_form" type="button">Submit</button>
+                                                        <button class="button submit-btn float_right display_none" id="submit" name="submit" type="submit">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="c2p_custom_webiste_admission_form.admission_form_view" name="Admission Form View">
+        <t t-call="website.layout">
+            <title>Admission Form View</title>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+            <link rel="stylesheet" href="/c2p_custom_webiste_admission_form/static/src/css/select2.min.css" />
+            <link rel="stylesheet" href="/c2p_custom_webiste_admission_form/static/src/css/toastr.min.css" />
+            <link rel="stylesheet" href="/c2p_custom_webiste_admission_form/static/src/css/style.css" />
+            <script src="/c2p_custom_webiste_admission_form/static/src/js/jquery.min.js">
+            </script>
+            <script src="/c2p_custom_webiste_admission_form/static/src/js/select2.min.js">
+            </script>
+            <script src="/c2p_custom_webiste_admission_form/static/src/js/sweetalert2.js">
+            </script>
+            <script src="/c2p_custom_webiste_admission_form/static/src/js/toastr.min.js">
+            </script>
+            <script>
+                document.getElementsByTagName('title')[0].innerText = 'Admission Form View';
+            </script>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="addmission_form_header">
+                            <div>
+                                <h1>Admission Form View</h1>
+                                <div class="alert alert-success">
+                                    Admission Form Created Successfully.
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <h3 class="mb-2">Personal Detail</h3>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <t t-if='op_admission.application_number'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Application Number
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.application_number" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.first_name'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Full Name
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="title.name" /> <t t-esc="op_admission.first_name" /> <t t-esc="op_admission.middle_name" /> <t t-esc="op_admission.last_name" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.gender'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Gender
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.gender" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.birth_date'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Birth Date
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.birth_date" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.father_name'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                         father_name
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.father_name" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.email'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Email
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.email" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.country_id'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Country Name
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="country.name" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.state_id'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            State Name
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="state.name" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.city'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            City
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.city" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.zip'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Zip
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.zip" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.mobile'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Mobile
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.mobile" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.street'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            First Address
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.street" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.street2'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Second Address
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.street2" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <h3 class="mb-2">Admission Detail / Educational Detail</h3>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <!-- <t t-if='op_admission.branch_id'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Branch Name
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="branchs.name" />
+                                                        </td>
+                                                    </tr>
+                                                </t> -->
+                                                <t t-if='op_admission.register_id'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Admission Register
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="admission_register.name" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.course_id'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Course Name
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="courses.name" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='application_date'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Application Date
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="application_date" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='admission_date'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Admission Date
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="admission_date" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <!-- <t t-if='op_admission.prev_institute_id'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                           Previous Institute Name
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.prev_institute_id" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.prev_course_id'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Previous Course Name
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.prev_course_id" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-if='op_admission.prev_result'>
+                                                    <tr>
+                                                        <th class="check_table_tr_th_td">
+                                                            Previous Result
+                                                        </th>
+                                                        <td class="check_table_tr_th_td">
+                                                            <t t-esc="op_admission.prev_result" />
+                                                        </td>
+                                                    </tr>
+                                                </t> -->
+                                            </thead>
+                                        </table>
+                                        <!-- <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Institute Name</th>
+                                                    <th>Course Name</th>
+                                                    <th>Year Of Completion</th>
+                                                    <th>Result</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="op_academic_history or []" t-as="academic_history">
+                                                    <t t-if='academic_history'>
+                                                        <tr>
+                                                            <td><t t-esc="academic_history.institute_name" /></td>
+                                                            <td><t t-esc="academic_history.course_name" /></td>
+                                                            <td><t t-esc="academic_history.year_of_completion" /></td>
+                                                            <td><t t-esc="academic_history.result" /></td>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                            </tbody>
+                                        </table> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <data noupdate="1">
+        <record id="admission_form_page" model="website.page">
+            <field name="url">/admission/form</field>
+            <field name="is_published">True</field>
+            <field name="view_id" ref="admission_form"/>
+            <field name="track">True</field>
+        </record>
+        <record id="menu_admission_form" model="website.menu">
+            <field name="name">Admission Form</field>
+            <field name="url">/admission/form</field>
+            <field name="page_id" ref="c2p_custom_webiste_admission_form.admission_form_page"/>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">22</field>
+        </record>
+    </data>
+</odoo>
