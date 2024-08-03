@@ -118,10 +118,11 @@ class WebsiteAdmissionForm(http.Controller):
                 'father_name': data.get('father_name'),
                 'mother_name': data.get('mother_name'),
             })
+            logger.error(f"submitting admission form {op_admission.id}")
             resource = {
                 'status': 200,
                 'message': 'Admission Form Successfully Submitted',
-                'admission_id': op_admission.id  # return the created record ID
+                'admission_id': op_admission.id
             }
         except Exception as e:
             logger.error(f"Error submitting admission form: {e}")
