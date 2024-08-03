@@ -94,38 +94,59 @@ class WebsiteAdmissionForm(http.Controller):
     def api_admission_form(self, **kw):
         try:
             data = json.loads(request.httprequest.data.decode())
-            op_admission = request.env['op.admission'].sudo().create({
-                'name': data.get('name'),
-                'title': data.get('title'),
-                'first_name': data.get('first_name'),
-                'middle_name': data.get('middle_name'),
-                'last_name': data.get('last_name'),
-                'gender': data.get('gender'),
-                'birth_date': data.get('birth_date'),
-                'email': data.get('email'),
-                'country_id': data.get('country_id'),
-                'state_id': data.get('state_id'),
-                'city': data.get('city'),
-                'zip': data.get('zip'),
-                'phone': data.get('phone'),
-                'mobile': data.get('mobile'),
-                'street': data.get('street'),
-                'street2': data.get('street2'),
-                'application_date': data.get('application_date'),
-                'admission_date': data.get('admission_date'),
-                'register_id': data.get('register_id'),
-                'course_id': data.get('course_id'),
-                'father_name': data.get('father_name'),
-                'mother_name': data.get('mother_name'),
-            })
-            logger.error(f"submitting admission form {op_admission.id}")
-            resource = {
-                'status': 200,
-                'message': 'Admission Form Successfully Submitted',
-                'admission_id': op_admission.id
-            }
+            op_admission_register = request.env['op.admission.register'].sudo().search([('id' ,'=', int(data.get('register_id')))])
+            if op_admission_register:
+                birth_date = datetime.strptime(data.get('birth_date'), '%Y-%m-%d').date() if birth_date_str else None
+                if birth_date:
+                    today_date = fields.Date.today()
+                    day = (today_date - birth_date).days
+                    years = day // 365
+                    if years < op_admission_register.minimum_age_criteria:
+                        resource = {
+                            'status': 500,
+                            'message': f'An error occurred: Not Eligible for Admission minimum required age is : {op_admission_register.minimum_age_criteria}'
+                        }
+                    else:
+                        op_admission = request.env['op.admission'].sudo().create({
+                            'name': data.get('name'),
+                            'title': data.get('title'),
+                            'first_name': data.get('first_name'),
+                            'middle_name': data.get('middle_name'),
+                            'last_name': data.get('last_name'),
+                            'gender': data.get('gender'),
+                            'birth_date': data.get('birth_date'),
+                            'email': data.get('email'),
+                            'country_id': data.get('country_id'),
+                            'state_id': data.get('state_id'),
+                            'city': data.get('city'),
+                            'zip': data.get('zip'),
+                            'phone': data.get('phone'),
+                            'mobile': data.get('mobile'),
+                            'street': data.get('street'),
+                            'street2': data.get('street2'),
+                            'application_date': data.get('application_date'),
+                            'admission_date': data.get('admission_date'),
+                            'register_id': op_admission_register.id,
+                            'course_id': data.get('course_id'),
+                            'father_name': data.get('father_name'),
+                            'mother_name': data.get('mother_name'),
+                        })
+                        resource = {
+                            'status': 200,
+                            'message': 'Admission Form Successfully Submitted',
+                            'admission_id': op_admission.id
+                        }
+                else:
+                    resource = {
+                        'status': 500,
+                        'message': f'An error occurred: Birth Date Is Not None'
+                    }
+            else:
+                resource = {
+                    'status': 500,
+                    'message': 'An error occurred: Register ID is missing or invalid.'
+                }
         except Exception as e:
-            logger.error(f"Error submitting admission form: {e}")
             resource = {
                 'status': 500,
                 'message': f"An error occurred: {str(e)}"
