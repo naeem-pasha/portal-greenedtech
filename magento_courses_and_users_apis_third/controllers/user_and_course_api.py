@@ -101,10 +101,15 @@ class MagentoUserAPI(http.Controller):
         except Exception as e:
             return {"error": str(e), "success": False}
 
+    def get_odoo_base_url(self):
+        """Get the base URL of the current Odoo instance."""
+        return request.env['ir.config_parameter'].sudo().get_param('web.base.url')    
+
     def send_course_assignment_email(self,request, partner, course, password, already_user_exist=False):
         """Send custom email notification when a course is assigned to a user."""
 
         if not already_user_exist:
+            base_url = self.get_odoo_base_url()
             # Set up email values
             email_values = {
                 'subject': f"Green Edtech: {course.name}",
@@ -112,7 +117,7 @@ class MagentoUserAPI(http.Controller):
                 'body_html': f"""
                     <p>Dear {partner.name},</p>
                     <p>You have been successfully assigned to the course <strong>{course.name}</strong>.</p>
-                    <p>You can start the course by clicking <a href="{course.website_url}">here</a>.</p>
+                    <p>You can start the course by clicking <a href="{base_url}/web/login">here</a>.</p>
                     <p>This is your login credentials Email:{partner.email} and Password: {password}</a>.</p>
                     <p>Best regards,<br>Your Team</p>
                 """,
@@ -125,7 +130,7 @@ class MagentoUserAPI(http.Controller):
                 'body_html': f"""
                                 <p>Dear {partner.name},</p>
                                 <p>You have been successfully assigned to the course <strong>{course.name}</strong>.</p>
-                                <p>You can start the course by clicking <a href="{course.website_url}">here</a>.</p>
+                                <p>You can start the course by clicking <a href="{base_url}/web/login">here</a>.</p>
                                 <p>Best regards,<br>Your Team</p>
                             """,
                 'email_from': 'your_email@yourdomain.com',  # Replace with your sender's email
@@ -138,6 +143,26 @@ class MagentoUserAPI(http.Controller):
         return "Email Sent Successfully"
 
     def session_authenticate(self, session_url, params):
+        # self.url_open('/web/session/logout')
+        try:
+            payload = {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 0,
+                "params": params
+            }
+            # Make a request to the session API
+            session_response = requests.post(session_url, json=payload)
+
+            # Check if session was created successfully
+            if session_response.status_code == 200:
+                session_data = session_response.json()
+
+                if session_data.get('result'):
+                    return session_data['result']
+        except Exception as e:
+            raise Exception(f"Error authenticating session: {str(e)}")
+
         # self.url_open('/web/session/logout')
         try:
             payload = {
