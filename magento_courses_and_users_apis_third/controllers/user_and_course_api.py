@@ -121,7 +121,7 @@ class MagentoUserAPI(http.Controller):
                     <p>This is your login credentials Email:{partner.email} and Password: {password}</a>.</p>
                     <p>Best regards,<br>Your Team</p>
                 """,
-                'email_from': 'your_email@yourdomain.com',  # Replace with your sender's email
+                'email_from': 'no-reply@greenedtech.com',  # Replace with your sender's email
             }
         else:
             email_values = {
@@ -133,7 +133,7 @@ class MagentoUserAPI(http.Controller):
                                 <p>You can start the course by clicking <a href="{base_url}/web/login">here</a>.</p>
                                 <p>Best regards,<br>Your Team</p>
                             """,
-                'email_from': 'your_email@yourdomain.com',  # Replace with your sender's email
+                'email_from': 'no-reply@greenedtech.com',  # Replace with your sender's email
             }
         print("check email data: ",email_values)
 
