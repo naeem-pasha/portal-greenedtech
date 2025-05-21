@@ -14,6 +14,10 @@ class Slide(models.Model):
         self.ensure_one()
         user = user or self.env.user
 
+        # Skip the condition if user is admin or teacher manager
+        if user.has_group('base.group_system') or user.has_group('elearning.group_course_teachers'):
+            return True  # All slides are accessible for these roles
+
         if user._is_public():
             return False
 

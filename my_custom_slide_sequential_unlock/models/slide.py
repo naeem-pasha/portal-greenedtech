@@ -31,6 +31,11 @@ class Slide(models.Model):
         if self == first_slide:
             return True  # Always allow first slide of first section
 
+
+        # Skip the condition if user is admin or teacher manager
+        if user.has_group('base.group_system') or user.has_group('elearning.group_course_teachers'):
+            return True  # All slides are accessible for these roles
+
         # 3. Find the index of the current slide
         try:
             current_index = slide_list.index(self)
@@ -58,6 +63,7 @@ class Slide(models.Model):
         """Only allow access to slide if previous slides are completed"""
         accessible_slides = []
         user = self.env.user
+
         for slide in self:
             if slide._check_previous_slide_completed(user):
                 accessible_slides.append(slide.id)

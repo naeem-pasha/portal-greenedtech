@@ -14,9 +14,6 @@
             # Include JS if needed later
         ],
     },
-    'price': 12.55,
-    'currency': 'USD',
-    'support': 'raghibdev2001@gmail.com',
     'installable': True,
     'application': False,
 }
